@@ -237,6 +237,20 @@ class Tasks
 		}
 	}
 
+	public static function mixedIndentationChecker(string $contents, Result $result, string $origContents = null): void
+    {
+        $origContents = $origContents ?: $contents;
+        $offset = 0;
+        if (preg_match('#^.*((\t )|( \t))\s*#m', $contents, $m, PREG_OFFSET_CAPTURE)) {
+            $result->error('Mixed tabs and spaces to indent', self::offsetToLine($origContents, $m[0][1]));
+            $offset = $m[0][1] + strlen($m[0][0]) + 1;
+        }
+
+        if (preg_match('#(?<=[\S ])(?<!^//)\t#m', $contents, $m, PREG_OFFSET_CAPTURE, $offset)) {
+            $result->error('Found unexpected tabulator', self::offsetToLine($origContents, $m[0][1]));
+        }
+    }
+
 
 	public static function tabIndentationChecker(string $contents, Result $result, string $origContents = null): void
 	{

@@ -60,6 +60,7 @@ Options:
     -i | --ignore <mask>  Files to ignore
     -f | --fix            Fixes files
     -l | --eol            Convert newline characters
+    --allow-spaces        Allow spaces for indentation
     --no-progress         Do not show progress dots
     --strict-types        Checks whether PHP 7.0 directive strict_types is enabled
 
@@ -106,7 +107,11 @@ $checker->addTask([$tasks, 'jsonSyntaxChecker'], '*.json');
 $checker->addTask([$tasks, 'yamlIndentationChecker'], '*.yml');
 $checker->addTask([$tasks, 'trailingWhiteSpaceFixer']);
 $checker->addTask([$tasks, 'tabIndentationChecker'], '*.css,*.less,*.js,*.json,*.neon');
-$checker->addTask([$tasks, 'tabIndentationPhpChecker'], '*.php,*.phpt');
+if (isset($options['--allow-spaces'])) {
+    $checker->addTask([$tasks, 'mixedIndentationChecker'], '*.php,*.phpt');
+} else {
+    $checker->addTask([$tasks, 'tabIndentationPhpChecker'], '*.php,*.phpt');
+}
 $checker->addTask([$tasks, 'unexpectedTabsChecker'], '*.yml');
 
 $ok = $checker->run($options['-d']);
