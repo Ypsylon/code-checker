@@ -1,6 +1,6 @@
 {
-	"name": "nette/code-checker",
-	"description": "✅ Nette CodeChecker: A simple tool to check source code against a set of Nette coding standards.",
+	"name": "ypsylon/code-checker",
+	"description": "✅ Nette CodeChecker: Fork with --allow-spaces option.",
 	"keywords": ["nette", "analyse", "code"],
 	"type": "project",
 	"license": ["BSD-3-Clause", "GPL-2.0-only", "GPL-3.0-only"],
@@ -8,6 +8,9 @@
 		{
 			"name": "David Grudl",
 			"homepage": "https://davidgrudl.com"
+		},
+		{
+			"name": "Jakub Hromádka"
 		}
 	],
 	"require": {
